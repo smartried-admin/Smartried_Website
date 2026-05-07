@@ -709,7 +709,6 @@
       'img/trainings.jpg',
       'img/placements.jpg',
       'img/IT_outsourcing.jpg',
-      'img/services.jpg',
     ];
 
     imagePaths.forEach(function (src) {
