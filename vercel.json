@@ -25,7 +25,6 @@
       ]
     }
   ],
-  "cleanUrls": true,
   "redirects": [
     {
       "source": "/index",
