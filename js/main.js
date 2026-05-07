@@ -66,7 +66,7 @@
     loader.className = 'page-loader';
     loader.innerHTML = `
       <div style="text-align:center">
-        <img src="/img/smartried_logo.png" alt="Smartried" style="height:44px;filter:brightness(0) invert(1);opacity:.9;margin-bottom:20px;display:block;margin-inline:auto;">
+        <img src="/img/favicon.png" alt="Smartried" style="height:64px;width:64px;filter:brightness(0) invert(1);opacity:.95;margin-bottom:20px;display:block;margin-inline:auto;">
         <div class="loader-bar"></div>
       </div>`;
     document.body.prepend(loader);
