@@ -2514,7 +2514,7 @@ p  { color: var(--text-light); line-height: 1.75; }
   gap: 10px;
 }
 .loader-bar {
-  width: 60px;
+  width: 160px;
   height: 4px;
   background: rgba(255,255,255,.25);
   border-radius: 4px;
