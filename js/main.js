@@ -567,6 +567,25 @@
     }
   }
 
+  /* ── Auto One-Line Card Rows ─────────────────────────── */
+  function initAutoCardRows() {
+    document.querySelectorAll('.features-grid, .services-grid, .differentiators-grid').forEach(function (grid) {
+      if (grid.classList.contains('training-programs-scroll')) return;
+
+      const cards = Array.from(grid.children).filter(function (child) {
+        return child.classList.contains('feature-card') ||
+               child.classList.contains('service-card') ||
+               child.classList.contains('diff-card');
+      });
+
+      if (cards.length > 5) {
+        grid.classList.add('cards-one-line-scroll');
+      } else {
+        grid.classList.remove('cards-one-line-scroll');
+      }
+    });
+  }
+
   /* ── Hero Floating Particles ──────────────────────────── */
   function initHeroParticles() {
     const hero = document.querySelector('.hero');
@@ -701,7 +720,69 @@
       document.body.style.opacity = '1';
     });
   }
+  /* ── Modals ──────────────────────────────────────────── */
+  function initModals() {
+    const footerLinks = document.querySelectorAll('.footer-bottom-links a');
+    const privacyTrigger = document.getElementById('privacyTrigger') || footerLinks[0] || null;
+    const termsTrigger = document.getElementById('termsTrigger') || footerLinks[1] || null;
+    const privacyModal = document.getElementById('privacyModal');
+    const termsModal = document.getElementById('termsModal');
+    const closeButtons = document.querySelectorAll('.modal-close');
 
+    if (!privacyModal && !termsModal) return;
+
+    function openModal(modal) {
+      if (modal) {
+        modal.classList.add('show');
+        document.body.style.overflow = 'hidden';
+      }
+    }
+
+    function closeModal(modal) {
+      if (modal) {
+        modal.classList.remove('show');
+        document.body.style.overflow = '';
+      }
+    }
+
+    if (privacyTrigger) {
+      privacyTrigger.addEventListener('click', function (e) {
+        e.preventDefault();
+        openModal(privacyModal);
+      });
+    }
+
+    if (termsTrigger) {
+      termsTrigger.addEventListener('click', function (e) {
+        e.preventDefault();
+        openModal(termsModal);
+      });
+    }
+
+    closeButtons.forEach(function (btn) {
+      btn.addEventListener('click', function () {
+        const modal = this.closest('.modal');
+        closeModal(modal);
+      });
+    });
+
+    [privacyModal, termsModal].forEach(function (modal) {
+      if (modal) {
+        modal.addEventListener('click', function (e) {
+          if (e.target === this) {
+            closeModal(this);
+          }
+        });
+      }
+    });
+
+    document.addEventListener('keydown', function (e) {
+      if (e.key === 'Escape') {
+        closeModal(privacyModal);
+        closeModal(termsModal);
+      }
+    });
+  }
   /* ── Init All ─────────────────────────────────────────── */
   document.addEventListener('DOMContentLoaded', function () {
     preloadSiteImages();
@@ -720,6 +801,8 @@
     initHeroSlideshow();
     initHeroParticles();
     initPageTransitions();
+    initModals();
+    initAutoCardRows();
   });
 
 })();
