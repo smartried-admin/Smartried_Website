@@ -6,6 +6,53 @@
 (function () {
   'use strict';
 
+  /* ── Cache/Cookie Hygiene ────────────────────────────── */
+  function initSiteDataHygiene() {
+    const markerKey = 'smartried_site_data_hygiene_v1';
+    if (sessionStorage.getItem(markerKey) === '1') return;
+    sessionStorage.setItem(markerKey, '1');
+
+    // Clear site cookies for root path and possible domain scopes.
+    document.cookie.split(';').forEach(function (cookie) {
+      const eqIdx = cookie.indexOf('=');
+      const name = (eqIdx > -1 ? cookie.slice(0, eqIdx) : cookie).trim();
+      if (!name) return;
+
+      const host = window.location.hostname;
+      const expires = 'expires=Thu, 01 Jan 1970 00:00:00 GMT';
+
+      document.cookie = name + '=;' + expires + ';path=/';
+      document.cookie = name + '=;' + expires + ';path=/;domain=' + host;
+
+      if (host.split('.').length > 2) {
+        const parent = host.split('.').slice(-2).join('.');
+        document.cookie = name + '=;' + expires + ';path=/;domain=.' + parent;
+      }
+    });
+
+    // Best-effort cache storage cleanup.
+    if ('caches' in window) {
+      caches.keys().then(function (keys) {
+        return Promise.all(keys.map(function (key) {
+          return caches.delete(key);
+        }));
+      }).catch(function () {
+        // No-op: cache API may be unavailable in restricted environments.
+      });
+    }
+
+    // Remove any active service workers to avoid stale cached responses.
+    if ('serviceWorker' in navigator) {
+      navigator.serviceWorker.getRegistrations().then(function (regs) {
+        regs.forEach(function (reg) {
+          reg.unregister();
+        });
+      }).catch(function () {
+        // No-op.
+      });
+    }
+  }
+
   /* ── Page Loader ──────────────────────────────────────── */
   function initLoader() {
     const body = document.body;
@@ -808,6 +855,7 @@
   }
   /* ── Init All ─────────────────────────────────────────── */
   document.addEventListener('DOMContentLoaded', function () {
+    initSiteDataHygiene();
     preloadSiteImages();
     initLoader();
     initHeader();
