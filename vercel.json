@@ -3,7 +3,7 @@
   "redirects": [
     {
       "source": "/",
-      "destination": "/home",
+      "destination": "/home/",
       "permanent": false
     },
     {
@@ -20,7 +20,7 @@
   "rewrites": [
     {
       "source": "/home",
-      "destination": "/index.html"
+      "destination": "/home/index.html"
     },
     {
       "source": "/programs",
