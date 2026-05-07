@@ -6,11 +6,13 @@
 (function () {
   'use strict';
 
+  const SITE_DEPLOY_VERSION = '2026-05-07-01';
+
   /* ── Cache/Cookie Hygiene ────────────────────────────── */
   function initSiteDataHygiene() {
-    const markerKey = 'smartried_site_data_hygiene_v1';
-    if (sessionStorage.getItem(markerKey) === '1') return;
-    sessionStorage.setItem(markerKey, '1');
+    const markerKey = 'smartried_site_data_hygiene_version';
+    const previousVersion = localStorage.getItem(markerKey);
+    if (previousVersion === SITE_DEPLOY_VERSION) return;
 
     // Clear site cookies for root path and possible domain scopes.
     document.cookie.split(';').forEach(function (cookie) {
@@ -51,6 +53,8 @@
         // No-op.
       });
     }
+
+    localStorage.setItem(markerKey, SITE_DEPLOY_VERSION);
   }
 
   /* ── Page Loader ──────────────────────────────────────── */
