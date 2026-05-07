@@ -1,7 +1,4 @@
 {
-  "buildCommand": null,
-  "outputDirectory": ".",
-  "framework": null,
   "cleanUrls": true,
   "redirects": [
     {
@@ -18,17 +15,64 @@
       "source": "/index.html",
       "destination": "/home",
       "permanent": true
-    },
-    {
-      "source": "/:path*.html",
-      "destination": "/:path*",
-      "permanent": true
     }
   ],
   "rewrites": [
     {
       "source": "/home",
       "destination": "/index.html"
+    },
+    {
+      "source": "/programs",
+      "destination": "/programs.html"
+    },
+    {
+      "source": "/about",
+      "destination": "/about.html"
+    },
+    {
+      "source": "/contact",
+      "destination": "/contact.html"
+    },
+    {
+      "source": "/privacy-policy",
+      "destination": "/privacy-policy.html"
+    },
+    {
+      "source": "/terms-of-use",
+      "destination": "/terms-of-use.html"
+    },
+    {
+      "source": "/course-java",
+      "destination": "/course-java.html"
+    },
+    {
+      "source": "/course-python",
+      "destination": "/course-python.html"
+    },
+    {
+      "source": "/course-data-engineering",
+      "destination": "/course-data-engineering.html"
+    },
+    {
+      "source": "/course-devops",
+      "destination": "/course-devops.html"
+    },
+    {
+      "source": "/course-automation",
+      "destination": "/course-automation.html"
+    },
+    {
+      "source": "/service-training",
+      "destination": "/service-training.html"
+    },
+    {
+      "source": "/service-placement",
+      "destination": "/service-placement.html"
+    },
+    {
+      "source": "/service-outsourcing",
+      "destination": "/service-outsourcing.html"
     }
   ]
 }
