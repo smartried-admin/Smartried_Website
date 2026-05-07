@@ -599,6 +599,91 @@
     }
   }
 
+  /* ── Hero Slideshow ──────────────────────────────────── */
+  function initHeroSlideshow() {
+    const slideshow = document.getElementById('heroSlideshow');
+    if (!slideshow) return;
+
+    const slides = Array.from(slideshow.querySelectorAll('.hero-slide'));
+    if (slides.length < 2) return;
+
+    const prevBtn = slideshow.querySelector('.hero-nav-prev');
+    const nextBtn = slideshow.querySelector('.hero-nav-next');
+
+    let activeIndex = slides.findIndex(function (slide) {
+      return slide.classList.contains('is-active');
+    });
+    if (activeIndex < 0) activeIndex = 0;
+    let timerId = null;
+
+    function showSlide(nextIndex) {
+      slides[activeIndex].classList.remove('is-active');
+      slides[nextIndex].classList.add('is-active');
+      activeIndex = nextIndex;
+    }
+
+    function goNext() {
+      const next = (activeIndex + 1) % slides.length;
+      showSlide(next);
+    }
+
+    function goPrev() {
+      const prev = (activeIndex - 1 + slides.length) % slides.length;
+      showSlide(prev);
+    }
+
+    function restartAutoPlay() {
+      if (timerId) clearInterval(timerId);
+      timerId = setInterval(goNext, 6000);
+    }
+
+    if (prevBtn) {
+      prevBtn.addEventListener('click', function () {
+        goPrev();
+        restartAutoPlay();
+      });
+    }
+
+    if (nextBtn) {
+      nextBtn.addEventListener('click', function () {
+        goNext();
+        restartAutoPlay();
+      });
+    }
+
+    restartAutoPlay();
+  }
+
+  /* ── Image Preload ───────────────────────────────────── */
+  function preloadSiteImages() {
+    const imagePaths = [
+      'img/hero_1.jpg',
+      'img/hero_2.jpg',
+      'img/hero_3.jpg',
+      'img/hero_4.jpg',
+      'img/contact.jpg',
+      'img/about_us.jpg',
+      'img/trainings.jpg',
+      'img/placements.jpg',
+      'img/IT_outsourcing.jpg',
+      'img/services.jpg',
+    ];
+
+    imagePaths.forEach(function (src) {
+      if (!document.head.querySelector('link[rel="preload"][as="image"][href="' + src + '"]')) {
+        const preload = document.createElement('link');
+        preload.rel = 'preload';
+        preload.as = 'image';
+        preload.href = src;
+        document.head.appendChild(preload);
+      }
+
+      const img = new Image();
+      img.decoding = 'async';
+      img.src = src;
+    });
+  }
+
   /* ── Smooth page transitions ──────────────────────────── */
   function initPageTransitions() {
     document.querySelectorAll('a[href]').forEach(function (link) {
@@ -619,6 +704,7 @@
 
   /* ── Init All ─────────────────────────────────────────── */
   document.addEventListener('DOMContentLoaded', function () {
+    preloadSiteImages();
     initLoader();
     initHeader();
     initMobileMenu();
@@ -631,6 +717,7 @@
     initActiveNav();
     initCardTilt();
     initRipple();
+    initHeroSlideshow();
     initHeroParticles();
     initPageTransitions();
   });
