@@ -66,7 +66,7 @@
     loader.className = 'page-loader';
     loader.innerHTML = `
       <div style="text-align:center;display:flex;flex-direction:column;align-items:center;gap:20px;">
-        <img src="/img/favicon.png" alt="Smartried" style="width:80px;height:80px;object-fit:contain;filter:brightness(0) invert(1);">
+        <img src="/img/favicon.png" alt="Smartried" style="width:80px;height:80px;object-fit:contain;">
         <div class="loader-bar"></div>
       </div>`;
     document.body.prepend(loader);
