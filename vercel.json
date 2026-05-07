@@ -97,6 +97,10 @@
     {
       "source": "/service-outsourcing",
       "destination": "/service-outsourcing.html"
+    },
+    {
+      "source": "/(.*)",
+      "destination": "/index.html"
     }
   ]
 }
