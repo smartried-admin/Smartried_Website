@@ -65,8 +65,11 @@
     const loader = document.createElement('div');
     loader.className = 'page-loader';
     loader.innerHTML = `
-      <div style="text-align:center">
-        <img src="/img/favicon.png" alt="Smartried" style="height:64px;width:64px;filter:brightness(0) invert(1);opacity:.95;margin-bottom:20px;display:block;margin-inline:auto;">
+      <div style="text-align:center;display:flex;flex-direction:column;align-items:center;gap:20px;">
+        <div style="position:relative;width:80px;height:80px;">
+          <img src="/img/favicon.png" alt="Smartried" style="width:100%;height:100%;object-fit:contain;filter:brightness(0) invert(1);opacity:.95;">
+          <div class="loader-spinner" style="position:absolute;inset:0;margin:auto;"></div>
+        </div>
         <div class="loader-bar"></div>
       </div>`;
     document.body.prepend(loader);
