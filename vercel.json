@@ -28,22 +28,21 @@
   "cleanUrls": true,
   "redirects": [
     {
-      "source": "/",
-      "destination": "/home",
-      "permanent": false
-    },
-    {
       "source": "/index",
-      "destination": "/home",
+      "destination": "/",
       "permanent": true
     },
     {
       "source": "/index.html",
-      "destination": "/home",
+      "destination": "/",
       "permanent": true
     }
   ],
   "rewrites": [
+    {
+      "source": "/",
+      "destination": "/index.html"
+    },
     {
       "source": "/home",
       "destination": "/index.html"
