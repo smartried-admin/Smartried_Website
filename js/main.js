@@ -106,6 +106,9 @@
       menu.querySelectorAll('.has-dropdown.mob-open').forEach(function (item) {
         item.classList.remove('mob-open');
       });
+      menu.querySelectorAll('.nav-dropdown-toggle').forEach(function (toggleBtn) {
+        toggleBtn.setAttribute('aria-expanded', 'false');
+      });
     }
 
     btn.addEventListener('click', function () {
@@ -128,8 +131,8 @@
     });
 
     // Mobile dropdown toggles
-    document.querySelectorAll('.has-dropdown').forEach(function (item) {
-      const link = item.querySelector('.nav-link');
+    menu.querySelectorAll('.has-dropdown').forEach(function (item) {
+      const link = item.querySelector('.nav-dropdown-toggle');
       if (!link) return;
 
       link.addEventListener('click', function (e) {
@@ -140,8 +143,11 @@
         const willOpen = !item.classList.contains('mob-open');
         menu.querySelectorAll('.has-dropdown.mob-open').forEach(function (openItem) {
           openItem.classList.remove('mob-open');
+          const openBtn = openItem.querySelector('.nav-dropdown-toggle');
+          if (openBtn) openBtn.setAttribute('aria-expanded', 'false');
         });
         item.classList.toggle('mob-open', willOpen);
+        link.setAttribute('aria-expanded', willOpen ? 'true' : 'false');
       });
     });
 
@@ -573,10 +579,11 @@
 
   /* ── Active Nav Link ──────────────────────────────────── */
   function initActiveNav() {
-    const currentPath = window.location.pathname.replace(/\/+$/, '') || '/home';
+    let currentPath = window.location.pathname.replace(/\/+$/, '') || '/home';
+    if (currentPath === '/' || currentPath === '/index.html') currentPath = '/home';
     document.querySelectorAll('.nav-link[href]').forEach(function (link) {
       const href = link.getAttribute('href');
-      if (href === currentPath || (currentPath === '/' && href === '/home')) {
+      if (href === currentPath) {
         link.classList.add('active');
       }
     });
