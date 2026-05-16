@@ -15,7 +15,7 @@
         Varthur Kodi,<br>
         Whitefield Main Road,<br>
         Bangalore - 560066,<br>
-        Karnataka.</span></div><div class="footer-contact-item"><span class="f-icon"><i class="fa-solid fa-phone"></i></span><span><a href="tel:+919187698483">+91 91876 98483</a></span></div><div class="footer-contact-item"><span class="f-icon"><i class="fa-solid fa-envelope"></i></span><a href="mailto:info@smartried.com" style="color:rgba(255,255,255,0.7);">info@smartried.com</a></div><div class="footer-contact-item"><span class="f-icon"><i class="fa-solid fa-clock"></i></span><span>Mon&ndash;Sat: 9:00 AM &ndash; 6:00 PM</span></div></div></div>
+        Karnataka.</span></div><div class="footer-contact-item"><span class="f-icon"><i class="fa-solid fa-phone"></i></span><span><a href="tel:+919187695853">+91 91876 95853</a></span></div><div class="footer-contact-item"><span class="f-icon"><i class="fa-solid fa-envelope"></i></span><a href="mailto:info@smartried.com" style="color:rgba(255,255,255,0.7);">info@smartried.com</a></div><div class="footer-contact-item"><span class="f-icon"><i class="fa-solid fa-clock"></i></span><span>Mon&ndash;Sat: 9:00 AM &ndash; 6:00 PM</span></div></div></div>
   </div></div></div>
   <div class="footer-bottom"><div class="container"><div class="footer-bottom-inner"><span>&copy; 2026 Smartried Training & Placement. All rights reserved.</span><div class="footer-bottom-links"><a id="privacyTrigger" href="/privacy-policy">Privacy Policy</a><a id="termsTrigger" href="/terms-of-use">Terms of Use</a></div></div></div></div>
 </footer>
