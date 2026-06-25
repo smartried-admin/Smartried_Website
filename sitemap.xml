@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+  <url><loc>https://www.smartried.com/</loc><changefreq>weekly</changefreq><priority>1.0</priority></url>
+  <url><loc>https://www.smartried.com/programs</loc><changefreq>weekly</changefreq><priority>0.9</priority></url>
+  <url><loc>https://www.smartried.com/course-java</loc><changefreq>monthly</changefreq><priority>0.9</priority></url>
+  <url><loc>https://www.smartried.com/course-python</loc><changefreq>monthly</changefreq><priority>0.9</priority></url>
+  <url><loc>https://www.smartried.com/course-data-engineering</loc><changefreq>monthly</changefreq><priority>0.85</priority></url>
+  <url><loc>https://www.smartried.com/course-devops</loc><changefreq>monthly</changefreq><priority>0.85</priority></url>
+  <url><loc>https://www.smartried.com/course-automation</loc><changefreq>monthly</changefreq><priority>0.85</priority></url>
+  <url><loc>https://www.smartried.com/service-training</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://www.smartried.com/service-placement</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://www.smartried.com/service-outsourcing</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://www.smartried.com/about</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://www.smartried.com/contact</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://www.smartried.com/privacy-policy</loc><changefreq>yearly</changefreq><priority>0.3</priority></url>
+  <url><loc>https://www.smartried.com/terms-of-use</loc><changefreq>yearly</changefreq><priority>0.3</priority></url>
+</urlset>

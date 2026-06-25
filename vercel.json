@@ -35,6 +35,71 @@
       "source": "/index.html",
       "destination": "/",
       "permanent": true
+    },
+    {
+      "source": "/programs.html",
+      "destination": "/programs",
+      "permanent": true
+    },
+    {
+      "source": "/about.html",
+      "destination": "/about",
+      "permanent": true
+    },
+    {
+      "source": "/contact.html",
+      "destination": "/contact",
+      "permanent": true
+    },
+    {
+      "source": "/privacy-policy.html",
+      "destination": "/privacy-policy",
+      "permanent": true
+    },
+    {
+      "source": "/terms-of-use.html",
+      "destination": "/terms-of-use",
+      "permanent": true
+    },
+    {
+      "source": "/course-java.html",
+      "destination": "/course-java",
+      "permanent": true
+    },
+    {
+      "source": "/course-python.html",
+      "destination": "/course-python",
+      "permanent": true
+    },
+    {
+      "source": "/course-data-engineering.html",
+      "destination": "/course-data-engineering",
+      "permanent": true
+    },
+    {
+      "source": "/course-devops.html",
+      "destination": "/course-devops",
+      "permanent": true
+    },
+    {
+      "source": "/course-automation.html",
+      "destination": "/course-automation",
+      "permanent": true
+    },
+    {
+      "source": "/service-training.html",
+      "destination": "/service-training",
+      "permanent": true
+    },
+    {
+      "source": "/service-placement.html",
+      "destination": "/service-placement",
+      "permanent": true
+    },
+    {
+      "source": "/service-outsourcing.html",
+      "destination": "/service-outsourcing",
+      "permanent": true
     }
   ],
   "rewrites": [

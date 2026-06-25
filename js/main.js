@@ -558,7 +558,16 @@
         return;
       }
 
-      // Simulate submission
+      const leadPayload = {
+        content_name: form.querySelector('#interest') ? form.querySelector('#interest').value : 'contact',
+        status: 'validated',
+      };
+
+      if (typeof window.smartriedTrackLead === 'function') {
+        window.smartriedTrackLead(leadPayload);
+      }
+
+      // Simulate submission until a real CRM/form endpoint is connected.
       const submitBtn = form.querySelector('[type="submit"]');
       const originalText = submitBtn.textContent;
       submitBtn.disabled = true;
