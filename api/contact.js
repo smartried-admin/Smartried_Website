@@ -1,6 +1,7 @@
 const nodemailer = require('nodemailer');
 
 const TO_EMAIL = process.env.CONTACT_TO_EMAIL || 'info@smartried.com';
+const DEFAULT_TIMEOUT_MS = 12000;
 
 function clean(value) {
   return String(value || '').trim();
@@ -20,10 +21,11 @@ function escapeHtml(value) {
 }
 
 function getTransporter() {
-  const host = process.env.SMTP_HOST;
+  const host = clean(process.env.SMTP_HOST);
   const port = Number(process.env.SMTP_PORT || 587);
-  const user = process.env.SMTP_USER;
-  const pass = process.env.SMTP_PASS;
+  const user = clean(process.env.SMTP_USER);
+  const pass = clean(process.env.SMTP_PASS);
+  const secure = String(process.env.SMTP_SECURE || '').toLowerCase() === 'true' || port === 465;
 
   if (!host || !user || !pass) {
     throw new Error('SMTP environment variables are not configured.');
@@ -32,9 +34,39 @@ function getTransporter() {
   return nodemailer.createTransport({
     host,
     port,
-    secure: port === 465,
+    secure,
+    requireTLS: !secure,
+    connectionTimeout: DEFAULT_TIMEOUT_MS,
+    greetingTimeout: DEFAULT_TIMEOUT_MS,
+    socketTimeout: DEFAULT_TIMEOUT_MS,
     auth: { user, pass },
+    tls: {
+      servername: process.env.SMTP_TLS_SERVERNAME || host,
+      rejectUnauthorized: process.env.SMTP_REJECT_UNAUTHORIZED === 'false' ? false : true,
+    },
   });
+}
+
+function publicErrorMessage(error) {
+  const code = error && (error.code || error.command || error.responseCode);
+
+  if (error && error.message === 'SMTP environment variables are not configured.') {
+    return 'Email service is not configured. Please check SMTP environment variables in Vercel.';
+  }
+
+  if (code === 'EAUTH' || code === 535 || code === 534) {
+    return 'Email authentication failed. Please check SMTP_USER and SMTP_PASS.';
+  }
+
+  if (code === 'ESOCKET' || code === 'ETIMEDOUT' || code === 'ECONNECTION') {
+    return 'Email server connection failed. Please check SMTP_HOST, SMTP_PORT, and SSL/TLS settings.';
+  }
+
+  if (code === 'EENVELOPE') {
+    return 'Email sender or recipient was rejected. Please check SMTP_FROM and CONTACT_TO_EMAIL.';
+  }
+
+  return 'Unable to send enquiry right now. Please check Vercel function logs for SMTP details.';
 }
 
 module.exports = async function handler(req, res) {
@@ -100,9 +132,11 @@ module.exports = async function handler(req, res) {
       `Submitted At: ${submittedAt}`,
     ].join('\n');
 
+    const fromEmail = clean(process.env.SMTP_FROM) || `Smartried Website <${clean(process.env.SMTP_USER)}>`;
+
     await getTransporter().sendMail({
       to: TO_EMAIL,
-      from: process.env.SMTP_FROM || process.env.SMTP_USER,
+      from: fromEmail,
       replyTo: email,
       subject: `New website enquiry from ${name}`,
       text,
@@ -111,10 +145,15 @@ module.exports = async function handler(req, res) {
 
     return res.status(200).json({ ok: true, message: 'Enquiry sent successfully.' });
   } catch (error) {
-    console.error('Contact form email failed:', error);
+    console.error('Contact form email failed:', {
+      code: error && error.code,
+      command: error && error.command,
+      responseCode: error && error.responseCode,
+      message: error && error.message,
+    });
     return res.status(500).json({
       ok: false,
-      message: 'Unable to send enquiry right now. Please call or email us directly.',
+      message: publicErrorMessage(error),
     });
   }
 };
