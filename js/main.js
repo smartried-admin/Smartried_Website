@@ -545,11 +545,12 @@
       });
     });
 
-    form.addEventListener('submit', function (e) {
+    form.addEventListener('submit', async function (e) {
       e.preventDefault();
       let allValid = true;
 
       form.querySelectorAll('input, select, textarea').forEach(function (field) {
+        if (field.name === 'companyWebsite') return;
         if (!validateField(field)) allValid = false;
       });
 
@@ -558,31 +559,47 @@
         return;
       }
 
-      const leadPayload = {
-        content_name: form.querySelector('#interest') ? form.querySelector('#interest').value : 'contact',
-        status: 'validated',
-      };
-
-      if (typeof window.smartriedTrackLead === 'function') {
-        window.smartriedTrackLead(leadPayload);
-      }
-
-      // Simulate submission until a real CRM/form endpoint is connected.
       const submitBtn = form.querySelector('[type="submit"]');
       const originalText = submitBtn.textContent;
       submitBtn.disabled = true;
       submitBtn.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> Sending...';
 
-      setTimeout(function () {
+      try {
+        const payload = Object.fromEntries(new FormData(form).entries());
+        const response = await fetch('/api/contact', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(payload),
+        });
+        const result = await response.json().catch(function () {
+          return {};
+        });
+
+        if (!response.ok || result.ok === false) {
+          throw new Error(result.message || 'Unable to send enquiry right now.');
+        }
+
+        const leadPayload = {
+          content_name: payload.interest || 'contact',
+          status: 'submitted',
+        };
+
+        if (typeof window.smartriedTrackLead === 'function') {
+          window.smartriedTrackLead(leadPayload);
+        }
+
         showToast('Thank you! We will get back to you shortly.', 'success');
         form.reset();
         form.querySelectorAll('input, select, textarea').forEach(function (f) {
           f.style.borderColor = '';
           f.style.boxShadow = '';
         });
+      } catch (error) {
+        showToast(error.message || 'Unable to send enquiry right now. Please call or email us directly.', 'error');
+      } finally {
         submitBtn.disabled = false;
         submitBtn.textContent = originalText;
-      }, 1600);
+      }
     });
   }
 

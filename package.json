@@ -1,0 +1,9 @@
+{
+  "name": "smartried-website",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Smartried static website with Vercel contact form email handling.",
+  "dependencies": {
+    "nodemailer": "^6.9.15"
+  }
+}
