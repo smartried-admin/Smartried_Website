@@ -38,6 +38,10 @@ function getTransporter() {
 }
 
 module.exports = async function handler(req, res) {
+  if (req.method === 'GET') {
+    return res.status(200).json({ ok: true, message: 'Contact endpoint is ready.' });
+  }
+
   if (req.method !== 'POST') {
     res.setHeader('Allow', 'POST');
     return res.status(405).json({ ok: false, message: 'Method not allowed.' });
