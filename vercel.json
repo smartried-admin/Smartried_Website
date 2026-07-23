@@ -1,5 +1,39 @@
 {
   "version": 2,
+  "builds": [
+    {
+      "src": "api/contact.js",
+      "use": "@vercel/node"
+    },
+    {
+      "src": "*.html",
+      "use": "@vercel/static"
+    },
+    {
+      "src": "css/**",
+      "use": "@vercel/static"
+    },
+    {
+      "src": "js/**",
+      "use": "@vercel/static"
+    },
+    {
+      "src": "img/**",
+      "use": "@vercel/static"
+    },
+    {
+      "src": "robots.txt",
+      "use": "@vercel/static"
+    },
+    {
+      "src": "sitemap.xml",
+      "use": "@vercel/static"
+    },
+    {
+      "src": "site.webmanifest",
+      "use": "@vercel/static"
+    }
+  ],
   "headers": [
     {
       "source": "/(.*)",
